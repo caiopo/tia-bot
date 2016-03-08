@@ -1,0 +1,2 @@
+BOT_TOKEN='token' # the token you get from botfather
+CACHE_DIR='../cache' # the directory used to store received images
