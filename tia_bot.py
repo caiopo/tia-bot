@@ -20,6 +20,14 @@ def resolve_args():
 def main():
 	resolve_args()
 
+	os.chdir(os.path.split(os.path.abspath(__file__))[0])
+
+	try:
+	    os.mkdir(config.CACHE_DIR)
+	except OSError as e:
+	    if e.errno != errno.EEXIST:
+	        raise e
+
 	updater = Updater(token=config.BOT_TOKEN)
 
 	dispatcher = updater.dispatcher
