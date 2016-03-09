@@ -8,7 +8,9 @@ import responses
 random.seed()
 
 # Botfather: /setcommands
-# help - detailed information about the bot
+# help - sobre titiabot
+# tia - envia uma foto linda
+# fotos - mostra o número de fotos disponíveis
 
 def start(bot, update):
 	bot.sendMessage(chat_id=update.message.chat_id,
@@ -16,7 +18,8 @@ def start(bot, update):
 
 def help(bot, update):
 	bot.sendMessage(chat_id=update.message.chat_id,
-					text=responses.help)
+					text=responses.help,
+					disable_web_page_preview=True)
 
 def unknown(bot, update):
 	if update.message.chat_id > 0: # user	
