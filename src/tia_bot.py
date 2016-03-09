@@ -22,6 +22,10 @@ def main():
 
 	os.chdir(os.path.split(os.path.abspath(__file__))[0])
 
+	config.CACHE_DIR = os.path.realpath(config.CACHE_DIR)
+
+	print(config.CACHE_DIR)
+
 	try:
 	    os.mkdir(config.CACHE_DIR)
 	except OSError as e:
@@ -37,6 +41,9 @@ def main():
 	dispatcher.addTelegramCommandHandler('start', handler.start)
 	dispatcher.addTelegramCommandHandler('help', handler.help)
 	dispatcher.addTelegramCommandHandler('tia', handler.tia)
+	dispatcher.addTelegramCommandHandler('titia', handler.tia)
+	dispatcher.addTelegramCommandHandler('tiarage', handler.tiarage)
+	dispatcher.addTelegramCommandHandler('fotos', handler.cache)
 
 
 	dispatcher.addTelegramMessageHandler(handler.message)
