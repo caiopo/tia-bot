@@ -24,8 +24,6 @@ def main():
 
 	config.CACHE_DIR = os.path.realpath(config.CACHE_DIR)
 
-	print(config.CACHE_DIR)
-
 	try:
 	    os.mkdir(config.CACHE_DIR)
 	except OSError as e:
