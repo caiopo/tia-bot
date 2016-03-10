@@ -19,8 +19,6 @@ def init():
 
 	auto_msg_targets = _start_auto_msg()
 
-	print(auto_msg_targets)
-
 def start(bot, update):
 	bot.sendMessage(chat_id=update.message.chat_id,
 					text=responses.start)
@@ -129,7 +127,7 @@ def auto_msg_job(bot):
 def _start_auto_msg():
 	try:
 		with open('automsg.txt') as targets:
-			return [int(chat_id) for chat_id.strip('\n') in targets]
+			return [int(chat_id.strip('\n')) for chat_id in targets]
 	except FileNotFoundError:
 		open('automsg.txt', 'w').close()
 		return []
