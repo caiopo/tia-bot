@@ -35,3 +35,11 @@ no_cache = ('Não tenho fotos para enviar! Me mande algumas!'
 cache = lambda clen: 'Tenho {} lindas fotos!'.format(clen)
 
 no_image = 'Você não tem nenhuma foto bonita para me mandar?' + telegram.Emoji.BLACK_QUESTION_MARK_ORNAMENT
+
+activate_auto_msg = ('Agora vou mandar fotos lindas para você de vez em quando!'
+					+telegram.Emoji.KISS_MARK
+					+telegram.Emoji.SMILING_FACE_WITH_SMILING_EYES
+					+telegram.Emoji.TWO_HEARTS
+					+telegram.Emoji.FACE_THROWING_A_KISS)
+
+deactivate_auto_msg = 'desativado'

@@ -33,6 +33,7 @@ def main():
 	updater = Updater(token=config.BOT_TOKEN)
 
 	dispatcher = updater.dispatcher
+	job_queue = updater.job_queue
 
 	print(updater.bot.getMe())
 
@@ -40,13 +41,16 @@ def main():
 	dispatcher.addTelegramCommandHandler('help', handler.help)
 	dispatcher.addTelegramCommandHandler('tia', handler.tia)
 	dispatcher.addTelegramCommandHandler('titia', handler.tia)
-	dispatcher.addTelegramCommandHandler('tiarage', handler.tiarage)
+	dispatcher.addTelegramCommandHandler('spam', handler.tiarage)
 	dispatcher.addTelegramCommandHandler('fotos', handler.cache)
+	dispatcher.addTelegramCommandHandler('quero', handler.ativar)
+	dispatcher.addTelegramCommandHandler('naoquero', handler.desativar)
 
 
 	dispatcher.addTelegramMessageHandler(handler.message)
-
 	dispatcher.addUnknownTelegramCommandHandler(handler.unknown)
+
+	job_queue.put(handler.auto_msg_job, 55)
 
 	updater.start_polling()
 

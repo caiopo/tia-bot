@@ -12,6 +12,15 @@ random.seed()
 # tia - envia uma foto linda
 # fotos - mostra o número de fotos disponíveis
 
+AUTO_MSG_TIME = [9, 14, 18] # Hour
+
+def init():
+	global auto_msg_targets
+
+	auto_msg_targets = _start_auto_msg()
+
+	print(auto_msg_targets)
+
 def start(bot, update):
 	bot.sendMessage(chat_id=update.message.chat_id,
 					text=responses.start)
@@ -34,8 +43,6 @@ def tia(bot, update):
 						text=responses.no_cache)
 	else:
 		try:
-			os.listdir(config.CACHE_DIR)
-
 			rnd = random.randrange(0, clen)
 
 			filename = '{cache}/{photo}'.format(cache=config.CACHE_DIR,
@@ -49,8 +56,8 @@ def tia(bot, update):
 			traceback.print_exc()
 
 def tiarage(bot, update):
-	if _cache_len() > 10:
-		for i in range(random.randrange(5, 10)):
+	if _cache_len() > 15:
+		for _ in range(random.randrange(10, 15)):
 			tia(bot, update)
 
 def cache(bot, update):
@@ -85,6 +92,52 @@ def message(bot, update):
 			traceback.print_exc()
 			_something_wrong(bot, update, e)
 
+def ativar(bot, update):
+	if update.message.chat_id not in auto_msg_targets:
+		auto_msg_targets.append(update.message.chat_id)
+		_save_auto_msg()
+		bot.sendMessage(chat_id=update.message.chat_id,
+						text=responses.activate_auto_msg)
+
+def desativar(bot, update):
+	if update.message.chat_id in auto_msg_targets:
+		auto_msg_targets.remove(update.message.chat_id)
+		_save_auto_msg()
+		bot.sendMessage(chat_id=update.message.chat_id,
+						text=responses.deactivate_auto_msg)
+
+
+def auto_msg_job(bot):
+	timenow = time.localtime()
+
+	# sum 2 to correct the time difference between the cloud server and the real UTC-3
+	if (timenow.tm_hour + 2) in AUTO_MSG_TIME and timenow.tm_min == 0:
+		for chat_id in auto_msg_targets:
+			try:
+				rnd = random.randrange(0, _cache_len())
+
+				filename = '{cache}/{photo}'.format(cache=config.CACHE_DIR,
+													photo=os.listdir(config.CACHE_DIR)[rnd])
+
+				with open(filename, 'rb') as photo:
+					bot.sendPhoto(chat_id=chat_id,
+									photo=photo)
+			except Exception as e:
+				traceback.print_exc()
+
+
+def _start_auto_msg():
+	try:
+		with open('automsg.txt') as targets:
+			return [int(chat_id) for chat_id in targets]
+	except FileNotFoundError:
+		open('automsg.txt', 'w').close()
+		return []
+
+def _save_auto_msg():
+	with open('automsg.txt', 'w') as targets:
+		for chat_id in auto_msg_targets:
+			targets.write(str(chat_id)+'\n')
 
 def _cache_len():
 	return len(os.listdir(config.CACHE_DIR))
@@ -93,3 +146,6 @@ def _cache_len():
 def _something_wrong(bot, update, e):
 	bot.sendMessage(chat_id=update.message.chat_id,
 					text='Something went wrong...\nError type: {}\nError message: {}'.format(type(e), e))
+
+
+init()
