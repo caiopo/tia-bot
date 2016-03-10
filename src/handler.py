@@ -129,7 +129,7 @@ def auto_msg_job(bot):
 def _start_auto_msg():
 	try:
 		with open('automsg.txt') as targets:
-			return [int(chat_id) for chat_id in targets]
+			return [int(chat_id) for chat_id.strip('\n') in targets]
 	except FileNotFoundError:
 		open('automsg.txt', 'w').close()
 		return []

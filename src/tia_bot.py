@@ -43,8 +43,8 @@ def main():
 	dispatcher.addTelegramCommandHandler('titia', handler.tia)
 	dispatcher.addTelegramCommandHandler('spam', handler.tiarage)
 	dispatcher.addTelegramCommandHandler('fotos', handler.cache)
-	dispatcher.addTelegramCommandHandler('quero', handler.ativar)
-	dispatcher.addTelegramCommandHandler('naoquero', handler.desativar)
+	dispatcher.addTelegramCommandHandler('ativar', handler.ativar)
+	dispatcher.addTelegramCommandHandler('desativar', handler.desativar)
 
 
 	dispatcher.addTelegramMessageHandler(handler.message)
