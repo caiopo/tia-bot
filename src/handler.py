@@ -53,11 +53,6 @@ def tia(bot, update):
 			_something_wrong(bot, update, e)
 			traceback.print_exc()
 
-def tiarage(bot, update):
-	if _cache_len() > 15:
-		for _ in range(random.randrange(10, 15)):
-			tia(bot, update)
-
 def cache(bot, update):
 	clen = _cache_len()
 
