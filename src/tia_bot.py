@@ -41,7 +41,6 @@ def main():
 	dispatcher.addTelegramCommandHandler('help', handler.help)
 	dispatcher.addTelegramCommandHandler('tia', handler.tia)
 	dispatcher.addTelegramCommandHandler('titia', handler.tia)
-	dispatcher.addTelegramCommandHandler('spam', handler.tiarage)
 	dispatcher.addTelegramCommandHandler('fotos', handler.cache)
 	dispatcher.addTelegramCommandHandler('ativar', handler.ativar)
 	dispatcher.addTelegramCommandHandler('desativar', handler.desativar)
