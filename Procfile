@@ -1,1 +1,0 @@
-web: python src/tia_bot.py -v
