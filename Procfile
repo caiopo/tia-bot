@@ -1,1 +1,1 @@
-tia: python src/tia_bot.py
+web: python src/tia_bot.py -v
