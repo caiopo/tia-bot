@@ -18,11 +18,13 @@ Meu repositório: https://github.com/caiopo/tia-bot
 			telegram.Emoji.KISSING_FACE,
 			telegram.Emoji.SMILING_FACE_WITH_HEART_SHAPED_EYES)
 
-received_image = ('Ai, que lindo! Obrigado, querido. Que deus te abençoe! '
+received_image = ('Ai, que lindo! Obrigada, querido. Que deus te abençoe! '
 				+telegram.Emoji.SMILING_FACE_WITH_SMILING_EYES
 				+telegram.Emoji.FACE_THROWING_A_KISS
 				+telegram.Emoji.KISS_MARK
 				+telegram.Emoji.TWO_HEARTS)
+
+contributions_disabled = telegram.Emoji.FACE_THROWING_A_KISS * 3
 
 unknown_command = 'O que é isso? ' + telegram.Emoji.BLACK_QUESTION_MARK_ORNAMENT
 

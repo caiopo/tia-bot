@@ -1,2 +1,3 @@
 BOT_TOKEN='token' # the token you get from botfather
 CACHE_DIR='../cache' # the directory used to store received images
+ENABLE_CONTRIBUTIONS=False # if True, tia-bot can add photos she receives to the cache
