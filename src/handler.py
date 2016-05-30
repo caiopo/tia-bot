@@ -64,30 +64,30 @@ def cache(bot, update):
 						text=responses.cache(clen))
 
 def message(bot, update):
-	if config.ENABLE_CONTRIBUTIONS:
-		if update.message.chat_id > 0: # user
-			try:
-				if not update.message.photo:
+	if update.message.chat_id > 0: # user
+		if config.ENABLE_CONTRIBUTIONS:
+				try:
+					if not update.message.photo:
+						bot.sendMessage(chat_id=update.message.chat_id,
+										text=responses.no_image)
+						return
+
+					photosize = bot.getFile(update.message.photo[-1].file_id)
+
+					filename = '{cache}/photo_{num}.jpg'.format(cache=config.CACHE_DIR,
+																num=''.join(str(time.time()).split('.')))
+
+					photosize.download(filename)
+
 					bot.sendMessage(chat_id=update.message.chat_id,
-									text=responses.no_image)
-					return
+									text=responses.received_image)
 
-				photosize = bot.getFile(update.message.photo[-1].file_id)
-
-				filename = '{cache}/photo_{num}.jpg'.format(cache=config.CACHE_DIR,
-															num=''.join(str(time.time()).split('.')))
-
-				photosize.download(filename)
-
-				bot.sendMessage(chat_id=update.message.chat_id,
-								text=responses.received_image)
-
-			except Exception as e:
-				traceback.print_exc()
-				_something_wrong(bot, update, e)
-	else:
-		bot.sendMessage(chat_id=update.message.chat_id,
-						text=responses.contributions_disabled)
+				except Exception as e:
+					traceback.print_exc()
+					_something_wrong(bot, update, e)
+		else:
+			bot.sendMessage(chat_id=update.message.chat_id,
+							text=responses.contributions_disabled)
 def ativar(bot, update):
 	if update.message.chat_id not in auto_msg_targets:
 		auto_msg_targets.append(update.message.chat_id)
